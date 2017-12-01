@@ -1,0 +1,13 @@
+use tpd;
+CREATE VIEW VWW AS
+SELECT t2.id, t1.type, t2.env, t2.os, t2.host, t2.ip, t1.user, (CONVERT(FROM_BASE64(t1.passwd) USING latin2)) as passwd
+FROM tpd.usuarios t1 RIGHT JOIN tpd.servidores t2 on (t2.id = t1.svr);
+
+select VIEW VWW;
+
+SELECT user AS USERS, ip AS HOSTS, passwd AS PASS
+FROM tpd.vww 
+WHERE env in ('4','5','7') 
+#and ip like '10.130.214.%'
+and user is not null
+and type =1; 
